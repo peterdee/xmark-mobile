@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "xmark-mobile",
+    "name": "XMark",
     "slug": "xmark-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "xmark",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/images/splash.png",
