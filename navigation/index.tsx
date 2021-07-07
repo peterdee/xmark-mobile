@@ -1,22 +1,27 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-import NotFoundScreen from '../screens/NotFound';
-import { RootStackParamList } from './types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import NotFoundScreen from '../screens/NotFound';
+import { RootStackParamList } from './types';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-function RootNavigator() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Root" component={BottomTabNavigator} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-    </Stack.Navigator>
-  );
-}
+const RootNavigator = (): React.ReactElement => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen
+      component={BottomTabNavigator}
+      name="Root"
+    />
+    <Stack.Screen
+      component={NotFoundScreen}
+      name="NotFound"
+      options={{ title: 'Oops!' }}
+    />
+  </Stack.Navigator>
+);
 
 const Navigation = (): React.ReactElement => (
   <NavigationContainer linking={LinkingConfiguration}>

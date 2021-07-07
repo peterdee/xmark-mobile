@@ -30,10 +30,17 @@ export const getItem = async <T>(key: string): Promise<T | null> => {
 };
 
 /**
+ * Delete an item in AsyncStorage
+ * @param {string} key - key value for the item
+ * @returns {Promise<void>}
+ */
+export const removeItem = async (key: string): Promise<void> => AsyncStorage.removeItem(key);
+
+/**
  * Store an item in AsyncStorage
  * @param {string} key - key value for the item
  * @param {T} item - an item to store
- * @returns {void}
+ * @returns {Promise<void>}
  */
 export const setItem = async <T>(key: string, item: T): Promise<void> => AsyncStorage.setItem(
   key,

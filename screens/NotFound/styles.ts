@@ -8,18 +8,17 @@ export default StyleSheet.create({
     backgroundColor: colors.appBackground,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: colors.spacer + (colors.spacer / 4),
     fontWeight: 'bold',
   },
   link: {
-    marginTop: 15,
-    paddingVertical: 15,
+    marginTop: colors.spacer,
+    paddingVertical: colors.spacer,
   },
   linkText: {
-    fontSize: 14,
-    color: '#2e78b7',
+    fontSize: colors.spacer,
+    color: colors.accent,
   },
 });
