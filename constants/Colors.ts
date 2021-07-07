@@ -1,10 +1,12 @@
+const ACCENT = '#151515';
 const tintColorLight = '#2f95dc';
 const tintColorDark = '#fff';
 
 export default {
-  accent: '#8D80AD',
+  accent: ACCENT,
   appBackground: '#ffffff',
-  appText: '#151515',
+  appText: ACCENT,
+  inactiveText: '#bbbbbb',
   spacer: 16,
   light: {
     text: '#000',

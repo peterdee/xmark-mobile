@@ -19,9 +19,9 @@ import {
 } from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 
-import colors from '../constants/Colors';
+import colors from '../../constants/Colors';
 import { Coordinates, Marker as MarkerInterface } from './types';
-import { getItem, setItem, storeKeys } from '../utilities/store';
+import { getItem, setItem, storeKeys } from '../../utilities/store';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Home = (): React.ReactElement => {
+const Map = (): React.ReactElement => {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [markers, setMarkers] = useState<MarkerInterface[]>([]);
 
@@ -153,4 +153,4 @@ const Home = (): React.ReactElement => {
   );
 };
 
-export default memo(Home);
+export default memo(Map);
