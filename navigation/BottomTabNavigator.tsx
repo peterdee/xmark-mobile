@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -36,44 +36,44 @@ const SavedLocationsNavigator = (): React.ReactElement => (
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function BottomTabNavigator(): React.ReactElement {
-  return (
-    <BottomTab.Navigator
-      initialRouteName="Map"
-      tabBarOptions={{
-        activeTintColor: Colors.accent,
-        inactiveTintColor: Colors.inactiveText,
-        showLabel: false,
+const BottomTabNavigator = (): React.ReactElement => (
+  <BottomTab.Navigator
+    initialRouteName="Map"
+    tabBarOptions={{
+      activeTintColor: Colors.accent,
+      inactiveTintColor: Colors.inactiveText,
+      showLabel: false,
+    }}
+  >
+    <BottomTab.Screen
+      component={MapNavigator}
+      name="Map"
+      options={{
+        tabBarIcon: ({ color }: { color: string }) => (
+          <MaterialCommunityIcons
+            color={color}
+            name="map-marker-multiple-outline"
+            size={24}
+            style={{ marginBottom: -3 }}
+          />
+        ),
       }}
-    >
-      <BottomTab.Screen
-        component={MapNavigator}
-        name="Map"
-        options={{
-          tabBarIcon: ({ color }: { color: string }) => (
-            <MaterialCommunityIcons
-              color={color}
-              name="map-marker-multiple-outline"
-              size={24}
-              style={{ marginBottom: -3 }}
-            />
-          ),
-        }}
-      />
-      <BottomTab.Screen
-        component={SavedLocationsNavigator}
-        name="SavedLocations"
-        options={{
-          tabBarIcon: ({ color }: { color: string }) => (
-            <Ionicons
-              color={color}
-              name="list"
-              size={24}
-              style={{ marginBottom: -3 }}
-            />
-          ),
-        }}
-      />
-    </BottomTab.Navigator>
-  );
-}
+    />
+    <BottomTab.Screen
+      component={SavedLocationsNavigator}
+      name="SavedLocations"
+      options={{
+        tabBarIcon: ({ color }: { color: string }) => (
+          <Ionicons
+            color={color}
+            name="list"
+            size={24}
+            style={{ marginBottom: -3 }}
+          />
+        ),
+      }}
+    />
+  </BottomTab.Navigator>
+);
+
+export default memo(BottomTabNavigator);

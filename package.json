@@ -1,5 +1,21 @@
 {
+  "name": "xmark-mobile",
+  "description": "XMark is a mobile application that stores geolocation",
+  "version": "1.0.3",
   "private": true,
+  "author": {
+    "name": "Peter Dyumin",
+    "url": "https://github.com/peterdee"
+  },
+  "homepage": "https://github.com/julyskies/scryptwrap",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterdee/xmark-mobile"
+  },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "android": "expo start --android",
