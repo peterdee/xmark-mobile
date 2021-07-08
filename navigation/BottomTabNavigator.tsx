@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { BottomTabParamList, MapParamList, SavedLocationsParamList } from './types';
-import Colors from '../constants/Colors';
+import Colors from '../constants/styles';
 import Map from '../screens/Map';
 import SavedLocations from '../screens/SavedLocations';
 

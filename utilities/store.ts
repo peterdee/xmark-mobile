@@ -52,4 +52,5 @@ export const setItem = async <T>(key: string, item: T): Promise<void> => AsyncSt
 // Keys for the store
 export const storeKeys = {
   markers: 'markers',
+  pinExists: 'pinexists',
 } as const;

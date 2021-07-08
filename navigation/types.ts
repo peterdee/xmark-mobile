@@ -8,8 +8,9 @@ export type MapParamList = {
 };
 
 export type RootStackParamList = {
-  Root: undefined;
   NotFound: undefined;
+  PIN: undefined;
+  Root: undefined;
 };
 
 export type SavedLocationsParamList = {

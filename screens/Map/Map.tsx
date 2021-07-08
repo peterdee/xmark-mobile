@@ -19,7 +19,7 @@ import {
 } from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 
-import colors from '../../constants/Colors';
+import colors from '../../constants/styles';
 import { Coordinates, Marker as MarkerInterface } from './types';
 import { getItem, setItem, storeKeys } from '../../utilities/store';
 

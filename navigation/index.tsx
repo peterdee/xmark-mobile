@@ -4,21 +4,29 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
-import NotFoundScreen from '../screens/NotFound';
+import NotFound from '../screens/NotFound';
+import PIN from '../screens/PIN';
 import { RootStackParamList } from './types';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator = (): React.ReactElement => (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Navigator
+    initialRouteName="PIN"
+    screenOptions={{ headerShown: false }}
+  >
+    <Stack.Screen
+      component={NotFound}
+      name="NotFound"
+      options={{ title: 'Oops!' }}
+    />
+    <Stack.Screen
+      component={PIN}
+      name="PIN"
+    />
     <Stack.Screen
       component={BottomTabNavigator}
       name="Root"
-    />
-    <Stack.Screen
-      component={NotFoundScreen}
-      name="NotFound"
-      options={{ title: 'Oops!' }}
     />
   </Stack.Navigator>
 );
