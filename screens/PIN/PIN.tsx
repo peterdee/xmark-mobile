@@ -9,6 +9,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 
 import constants from '../../constants';
 import { getItem, storeKeys } from '../../utilities/store';
+// import { hash } from '../../utilities/hashing';
 import Keyboard from './components/Keyboard';
 import { RootStackParamList } from '../../navigation/types';
 import styles from './styles';
@@ -39,7 +40,7 @@ const PIN = (
     setDisableNumerics(true);
   };
 
-  const handleKeyboardClick = (value: string): null | void | Promise<void> => {
+  const handleKeyboardClick = async (value: string): Promise<null | void> => {
     if (value === constants.backspace) {
       const newCode = code.length > 0 ? code.substr(0, code.length - 1) : '';
       if (newCode.length === 0) {
@@ -54,6 +55,9 @@ const PIN = (
     }
 
     const newCode = `${code}${value}`;
+
+    // const hashed = await hash(value);
+    // console.log(hashed);
 
     if (newCode.length >= 4) {
       setCode(newCode);
