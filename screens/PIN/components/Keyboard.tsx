@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import constants from '../../../constants';
+import KeyboardItem from './KeyboardItem';
 import styles from '../styles';
 
 interface KeyboardProps {
@@ -32,25 +33,13 @@ const Keyboard = (props: KeyboardProps): React.ReactElement => {
           style={styles.keyboardRow}
         >
           { row.map((item: string): React.ReactElement => (
-            <Pressable
-              disabled={
-                item === constants.empty
-                || (item !== constants.backspace && disableNumerics)
-                || (item === constants.backspace && disableBackspace)
-              }
+            <KeyboardItem
+              disableBackspace={disableBackspace}
+              disableNumerics={disableNumerics}
+              handleClick={handleClick}
+              item={item}
               key={item}
-              onPressIn={() => handleClick(item)}
-              style={[
-                styles.keyboardItem,
-                (disableBackspace || disableNumerics) && styles.keyboardItemDisabled,
-              ]}
-            >
-              { item !== 'empty' && item !== 'backspace' && (
-                <Text style={styles.keyboardText}>
-                  { item }
-                </Text>
-              ) }
-            </Pressable>
+            />
           )) }
         </View>
       )) }

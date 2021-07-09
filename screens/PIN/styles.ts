@@ -4,10 +4,10 @@ import colors from '../../constants/styles';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: colors.appBackground,
     alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: colors.appBackground,
+    flex: 1,
+    justifyContent: 'space-around',
   },
   keyboardWrap: {
     alignContent: 'center',
@@ -23,21 +23,43 @@ export default StyleSheet.create({
   },
   keyboardItem: {
     alignItems: 'center',
-    borderColor: colors.accent,
-    borderWidth: 1,
+    backgroundColor: colors.appBackground,
     borderRadius: 50,
-    color: colors.appText,
     display: 'flex',
     height: 64,
     justifyContent: 'center',
     margin: (colors.spacer / 2),
     width: 64,
   },
-  keyboardItemDisabled: {
-    color: colors.inactiveText,
-    borderColor: colors.inactiveText,
+  keyboardItemEmpty: {
+    borderWidth: 0,
+  },
+  keyboardItemPressed: {
+    backgroundColor: colors.appText,
   },
   keyboardText: {
-    fontSize: 20,
+    color: colors.appText,
+    fontSize: 24,
+  },
+  keyboardTextDisabled: {
+    color: colors.inactiveText,
+  },
+  keyboardTextPressed: {
+    color: colors.appBackground,
+  },
+  PINAreaContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '50%',
+  },
+  PINAreaItem: {
+    backgroundColor: colors.inactiveText,
+    borderRadius: 50,
+    height: 24,
+    width: 24,
+  },
+  PINAreaItemFilled: {
+    backgroundColor: colors.appText,
   },
 });

@@ -1,34 +1,33 @@
 import React, {
   memo,
   useEffect,
-  useRef,
   useState,
 } from 'react';
-import { Pressable, Text, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { Text, View } from 'react-native';
 
 import constants from '../../constants';
-import { getItem, storeKeys } from '../../utilities/store';
-// import { hash } from '../../utilities/hashing';
+import { getItem, setItem, storeKeys } from '../../utilities/store';
+import { hash, compare } from '../../utilities/hashing';
 import Keyboard from './components/Keyboard';
+import PINArea from './components/PINArea';
 import { RootStackParamList } from '../../navigation/types';
 import styles from './styles';
 
 const PIN = (
   { navigation }: StackScreenProps<RootStackParamList, 'PIN'>,
 ): React.ReactElement => {
-  const pinRef = useRef(null);
-
+  const [authenticationError, setAuthenticationError] = useState<boolean>(false);
   const [code, setCode] = useState<string>('');
-  const [disableBackspace, setDisableBackspace] = useState<boolean>(false);
+  const [disableBackspace, setDisableBackspace] = useState<boolean>(true);
   const [disableNumerics, setDisableNumerics] = useState<boolean>(false);
   const [firstOpen, setFirstOpen] = useState<boolean>(true);
 
   useEffect(
     (): void => {
       (async () => {
-        const pinExists = await getItem(storeKeys.pinExists);
-        if (!pinExists) {
+        const PINExists = await getItem(storeKeys.PINExists);
+        if (!PINExists) {
           setFirstOpen(true);
         }
       })();
@@ -37,17 +36,35 @@ const PIN = (
   );
 
   const handleCode = async (): Promise<void> => {
-    setDisableNumerics(true);
+    if (firstOpen) {
+      const hashed = await hash(String(code));
+      await Promise.all([
+        setItem<string>(storeKeys.PINCodeHash, hashed),
+        setItem<boolean>(storeKeys.PINExists, true),
+      ]);
+      return navigation.replace('Root');
+    }
+
+    const PINHash = await getItem<string>(storeKeys.PINCodeHash);
+    const codeIsValid = await compare(String(PINHash), String(code));
+    if (codeIsValid) {
+      return navigation.replace('Root');
+    }
+
+    return setAuthenticationError(true);
   };
 
   const handleKeyboardClick = async (value: string): Promise<null | void> => {
+    setAuthenticationError(false);
+
     if (value === constants.backspace) {
       const newCode = code.length > 0 ? code.substr(0, code.length - 1) : '';
       if (newCode.length === 0) {
         setDisableBackspace(true);
       }
+
       setDisableNumerics(false);
-      return setCode(code.length > 0 ? code.substr(0, code.length - 1) : '');
+      return setCode(newCode);
     }
 
     if (value === constants.empty) {
@@ -55,48 +72,48 @@ const PIN = (
     }
 
     const newCode = `${code}${value}`;
-
-    // const hashed = await hash(value);
-    // console.log(hashed);
+    setDisableBackspace(false);
 
     if (newCode.length >= 4) {
+      setDisableNumerics(true);
       setCode(newCode);
       return handleCode();
     }
 
-    return setCode((state): string => {
-      if (value === 'backspace') {
-        return state.length > 0 ? state.substr(0, state.length - 1) : '';
-      }
-      return `${state}${value}`;
-    });
+    return setCode(newCode);
   };
-
-  const handleNavigation = (): void => navigation.replace('Root');
 
   return (
     <View style={styles.container}>
       { firstOpen && (
-        <Text>
-          This is a first open
-          { code }
-        </Text>
+        <View>
+          <Text>
+            You are launching the application for the first time
+          </Text>
+          <Text>
+            Please choose a PIN code that will be used to access the application
+          </Text>
+          <Text>
+            { code }
+          </Text>
+        </View>
       ) }
       { !firstOpen && (
-        <Text ref={pinRef}>
-          PIN input code
+        <Text>
+          Please type your PIN code to access the application
         </Text>
       ) }
+      { authenticationError && (
+        <Text>
+          Code is invalid!
+        </Text>
+      ) }
+      <PINArea code={code} />
       <Keyboard
         disableBackspace={disableBackspace}
         disableNumerics={disableNumerics}
         handleClick={handleKeyboardClick}
       />
-      <Pressable onPress={handleNavigation}>
-        <Text>
-          Proceed
-        </Text>
-      </Pressable>
     </View>
   );
 };
