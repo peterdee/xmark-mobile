@@ -1,8 +1,11 @@
 import React, { memo } from 'react';
-import { Text, View } from 'react-native';
+import { Pressable, Text } from 'react-native';
+
+import styles from '../styles';
 
 interface MarkerItemProps {
-  description: string;
+  handleMarkerClick: (id: string) => void;
+  id: number | string;
   latitude: number | string;
   longitude: number | string;
   title: string;
@@ -10,24 +13,27 @@ interface MarkerItemProps {
 
 const MarkerItem = (props: MarkerItemProps): React.ReactElement => {
   const {
-    description,
+    handleMarkerClick,
+    id,
     latitude,
     longitude,
     title,
   } = props;
 
+  const handleClick = (): void => handleMarkerClick(String(id));
+
   return (
-    <View>
-      <Text>
+    <Pressable
+      onPress={handleClick}
+      style={styles.markerItemWrap}
+    >
+      <Text style={styles.markerItemTitle}>
         { title }
       </Text>
-      <Text>
-        { description }
+      <Text style={styles.markerItemSubtitle}>
+        { `${latitude} lat, ${longitude} long` }
       </Text>
-      <Text>
-        { `${latitude} | ${longitude}` }
-      </Text>
-    </View>
+    </Pressable>
   );
 };
 

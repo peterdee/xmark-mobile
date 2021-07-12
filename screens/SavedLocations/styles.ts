@@ -1,13 +1,36 @@
 import { StyleSheet } from 'react-native';
 
+import styles from '../../constants/styles';
+
 export default StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
     justifyContent: 'flex-start',
+    width: '100%',
   },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+  locationsNotFoundText: {
+    fontSize: styles.spacer,
+  },
+  locationsNotFoundWrap: {
+    marginTop: styles.spacer,
+  },
+  markerItemWrap: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginTop: styles.spacer,
+    marginHorizontal: styles.spacer,
+    width: '90%',
+  },
+  markerItemTitle: {
+    color: styles.appText,
+    fontSize: styles.spacer,
+  },
+  markerItemSubtitle: {
+    color: styles.inactiveText,
+    fontSize: (styles.spacer - styles.spacerQuarter),
+  },
+  menuIcon: {
+    marginRight: styles.spacerHalf,
   },
 });

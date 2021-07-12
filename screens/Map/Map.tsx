@@ -5,9 +5,7 @@ import React, {
   useState,
 } from 'react';
 import {
-  Dimensions,
   Pressable,
-  StyleSheet,
   Text,
   View,
 } from 'react-native';
@@ -18,49 +16,17 @@ import {
   requestForegroundPermissionsAsync,
 } from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
+import { useIsFocused } from '@react-navigation/native';
 
-import colors from '../../constants/styles';
 import { Coordinates, Marker as MarkerInterface } from './types';
 import { getItem, setItem, storeKeys } from '../../utilities/store';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-  map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
-  },
-  button: {
-    position: 'absolute',
-    bottom: 50,
-    left: 'auto',
-    right: 'auto',
-    padding: colors.spacer,
-    borderWidth: 2,
-    borderRadius: 8,
-    borderColor: colors.appText,
-    color: colors.appText,
-  },
-  buttonText: {
-    color: colors.appText,
-  },
-});
+import styles from './styles';
 
 const Map = (): React.ReactElement => {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [markers, setMarkers] = useState<MarkerInterface[]>([]);
+
+  const isFocused = useIsFocused();
 
   useEffect(
     (): void => {
@@ -83,7 +49,7 @@ const Map = (): React.ReactElement => {
         return setLocation(null);
       })();
     },
-    [],
+    [isFocused],
   );
 
   const handlePress = useCallback(

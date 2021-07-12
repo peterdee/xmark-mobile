@@ -6,7 +6,7 @@ import styles from './styles';
 interface BigButtonProps {
   buttonStyle?: object;
   disabled?: boolean;
-  onPress?: (event: GestureResponderEvent) => void;
+  onPress: (event: GestureResponderEvent) => void;
   text: string;
   textStyle?: object;
 }
@@ -45,7 +45,6 @@ const BigButton = (props: BigButtonProps): React.ReactElement => {
 BigButton.defaultProps = {
   buttonStyle: {},
   disabled: false,
-  onPress: null,
   textStyle: {},
 };
 
