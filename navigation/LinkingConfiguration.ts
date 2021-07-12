@@ -4,21 +4,23 @@ export default {
   prefixes: [Linking.makeUrl('/')],
   config: {
     screens: {
+      NotFound: '*',
+      PIN: 'pin',
+      ResetPIN: 'reset-pin',
       Root: {
         screens: {
-          TabOne: {
+          Map: {
             screens: {
-              TabOneScreen: 'one',
+              MapScreen: 'map',
             },
           },
-          TabTwo: {
+          SavedLocations: {
             screens: {
-              TabTwoScreen: 'two',
+              SavedLocationsScreen: 'saved-locations',
             },
           },
         },
       },
-      NotFound: '*',
     },
   },
 };

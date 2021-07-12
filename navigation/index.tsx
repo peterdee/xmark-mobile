@@ -6,6 +6,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
 import NotFound from '../screens/NotFound';
 import PIN from '../screens/PIN';
+import ResetPIN from '../screens/ResetPIN';
 import { RootStackParamList } from './types';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -23,6 +24,10 @@ const RootNavigator = (): React.ReactElement => (
     <Stack.Screen
       component={PIN}
       name="PIN"
+    />
+    <Stack.Screen
+      component={ResetPIN}
+      name="ResetPIN"
     />
     <Stack.Screen
       component={BottomTabNavigator}

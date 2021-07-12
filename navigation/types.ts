@@ -10,6 +10,7 @@ export type MapParamList = {
 export type RootStackParamList = {
   NotFound: undefined;
   PIN: undefined;
+  ResetPIN: undefined;
   Root: undefined;
 };
 

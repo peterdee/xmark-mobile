@@ -3,7 +3,7 @@ import { GestureResponderEvent, Pressable, Text } from 'react-native';
 
 import styles from './styles';
 
-interface BigButtonProps {
+interface LinkButtonProps {
   buttonStyle?: object;
   disabled?: boolean;
   onPress?: (event: GestureResponderEvent) => void;
@@ -11,7 +11,7 @@ interface BigButtonProps {
   textStyle?: object;
 }
 
-const BigButton = (props: BigButtonProps): React.ReactElement => {
+const LinkButton = (props: LinkButtonProps): React.ReactElement => {
   const {
     buttonStyle,
     disabled,
@@ -25,14 +25,14 @@ const BigButton = (props: BigButtonProps): React.ReactElement => {
       disabled={disabled}
       onPress={onPress}
       style={[
-        styles.bigButtonWrap,
-        disabled && styles.bigButtonWrapDisabled,
+        styles.linkButtonWrap,
         buttonStyle,
       ]}
     >
       <Text
         style={[
-          styles.bigButtonText,
+          styles.linkButtonText,
+          disabled && styles.linkButtonTextDisabled,
           textStyle,
         ]}
       >
@@ -42,11 +42,11 @@ const BigButton = (props: BigButtonProps): React.ReactElement => {
   );
 };
 
-BigButton.defaultProps = {
+LinkButton.defaultProps = {
   buttonStyle: {},
   disabled: false,
   onPress: null,
   textStyle: {},
 };
 
-export default memo(BigButton);
+export default memo(LinkButton);
