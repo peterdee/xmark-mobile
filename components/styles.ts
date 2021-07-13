@@ -31,4 +31,11 @@ export default StyleSheet.create({
   linkButtonTextDisabled: {
     color: colors.inactiveText,
   },
+  modalWrap: {
+    alignItems: 'center',
+    backgroundColor: colors.appText,
+    flex: 1,
+    justifyContent: 'center',
+    opacity: 0.9,
+  },
 });

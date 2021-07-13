@@ -8,7 +8,6 @@ import React, {
 import {
   FlatList,
   Pressable,
-  Text,
   View,
 } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -17,16 +16,20 @@ import { useIsFocused } from '@react-navigation/native';
 
 import colors from '../../constants/styles';
 import { getItem, removeItem, storeKeys } from '../../utilities/store';
+import LocationModal from './components/LocationModal';
 import { Marker } from '../Map/types';
 import MarkerItem from './components/MarkerItem';
+import MenuModal from './components/MenuModal';
+import ModalWrap from '../../components/ModalWrap';
 import { RootStackParamList } from '../../navigation/types';
 import SavedLocationsNotFound from './components/SavedLocationsNotFound';
 import styles from './styles';
 
 const SavedLocations = (
   { navigation }: StackScreenProps<RootStackParamList, 'Root'>,
-) => {
+): React.ReactElement => {
   const [markers, setMarkers] = useState<Marker[]>([]);
+  const [showLocation, setShowLocation] = useState<Marker | null>(null);
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
   const isFocused = useIsFocused();
@@ -74,25 +77,42 @@ const SavedLocations = (
     [markers],
   );
 
-  const handleMarkerClick = (id: string): void => console.log('clicked', id);
+  const handleCloseLocationModal = (): void => setShowLocation(null);
+
+  const handleDeleteMarker = async (id: string) => console.log('delete', id);
+
+  const handleMarkerClick = (id: string): void => {
+    const [marker] = markers.filter((item: Marker): boolean => String(item.key) === id);
+    return setShowLocation(marker);
+  };
 
   return (
     <View style={styles.container}>
       { showMenu && (
-        <Pressable
-          onPress={handleClearLocations}
-        >
-          <Text>
-            Clear locations
-          </Text>
-        </Pressable>
+        <ModalWrap visible={showMenu}>
+          <MenuModal
+            handleCloseMenu={handleMenuClick}
+            handleRemoveLocations={handleClearLocations}
+          />
+        </ModalWrap>
       ) }
-      { markers.length === 0 && !showMenu && (
+      { showLocation && (
+        <ModalWrap visible={!!showLocation}>
+          <LocationModal
+            handleCloseModal={handleCloseLocationModal}
+            handleDeleteMarker={handleDeleteMarker}
+            marker={showLocation}
+          />
+        </ModalWrap>
+      ) }
+      { markers.length === 0 && (
         <SavedLocationsNotFound />
       ) }
-      { markers.length > 0 && !showMenu && (
+      { markers.length > 0 && (
         <FlatList
+          contentContainerStyle={styles.list}
           data={markers}
+          keyExtractor={(item) => String(item.key)}
           renderItem={({ item }): React.ReactElement => (
             <MarkerItem
               handleMarkerClick={handleMarkerClick}

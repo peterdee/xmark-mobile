@@ -19,6 +19,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { useIsFocused } from '@react-navigation/native';
 
 import { Coordinates, Marker as MarkerInterface } from './types';
+import { COORDINATES_DELTA } from '../../constants';
 import { getItem, setItem, storeKeys } from '../../utilities/store';
 import styles from './styles';
 
@@ -92,8 +93,8 @@ const Map = (): React.ReactElement => {
       <MapView
         region={{
           ...(location && location.coords ? location.coords : { longitude: 0, latitude: 0 }),
-          longitudeDelta: 0.04,
-          latitudeDelta: 0.04,
+          longitudeDelta: COORDINATES_DELTA,
+          latitudeDelta: COORDINATES_DELTA,
         }}
         showsUserLocation
         style={styles.map}
