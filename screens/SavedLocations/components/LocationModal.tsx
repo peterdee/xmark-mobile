@@ -43,6 +43,7 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
         region={marker.coordinate}
         showDescription={false}
         showTitle={false}
+        showUserPosition={false}
       />
       <BigButton
         buttonStyle={{

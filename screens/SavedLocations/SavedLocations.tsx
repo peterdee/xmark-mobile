@@ -5,17 +5,18 @@ import React, {
   useLayoutEffect,
   useState,
 } from 'react';
-import {
-  FlatList,
-  Pressable,
-  View,
-} from 'react-native';
+import { FlatList, Pressable, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useIsFocused } from '@react-navigation/native';
 
 import colors from '../../constants/styles';
-import { getItem, removeItem, storeKeys } from '../../utilities/store';
+import {
+  getItem,
+  removeItem,
+  setItem,
+  storeKeys,
+} from '../../utilities/store';
 import LocationModal from './components/LocationModal';
 import { Marker } from '../Map/types';
 import MarkerItem from './components/MarkerItem';
@@ -79,7 +80,12 @@ const SavedLocations = (
 
   const handleCloseLocationModal = (): void => setShowLocation(null);
 
-  const handleDeleteMarker = async (id: string) => console.log('delete', id);
+  const handleDeleteMarker = async (id: string): Promise<void> => {
+    const newMarkers = markers.filter((marker: Marker): boolean => String(marker.key) !== id);
+    setMarkers(newMarkers);
+    await setItem(storeKeys.markers, newMarkers);
+    return handleCloseLocationModal();
+  };
 
   const handleMarkerClick = (id: string): void => {
     const [marker] = markers.filter((item: Marker): boolean => String(item.key) === id);

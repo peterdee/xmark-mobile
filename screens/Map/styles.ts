@@ -18,19 +18,14 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   map: {
-    width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width,
   },
   button: {
-    position: 'absolute',
-    bottom: 50,
+    bottom: (colors.spacer * 3),
     left: 'auto',
+    position: 'absolute',
     right: 'auto',
-    padding: colors.spacer,
-    borderWidth: 2,
-    borderRadius: 8,
-    borderColor: colors.appText,
-    color: colors.appText,
   },
   buttonText: {
     color: colors.appText,

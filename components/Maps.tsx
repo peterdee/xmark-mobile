@@ -10,6 +10,7 @@ interface MapsProps {
   region: Coordinates;
   showDescription?: boolean;
   showTitle?: boolean;
+  showUserPosition?: boolean;
 }
 
 const Maps = (props: MapsProps): React.ReactElement => {
@@ -19,6 +20,7 @@ const Maps = (props: MapsProps): React.ReactElement => {
     region,
     showDescription,
     showTitle,
+    showUserPosition,
   } = props;
 
   return (
@@ -28,6 +30,7 @@ const Maps = (props: MapsProps): React.ReactElement => {
         longitudeDelta: COORDINATES_DELTA,
         latitudeDelta: COORDINATES_DELTA,
       }}
+      showsUserLocation={showUserPosition}
       style={mapStyle}
     >
       { markers && markers.length > 0 && markers?.map((marker: Marker) => (
@@ -47,6 +50,7 @@ Maps.defaultProps = {
   markers: [],
   showDescription: true,
   showTitle: true,
+  showUserPosition: true,
 };
 
 export default memo(Maps);

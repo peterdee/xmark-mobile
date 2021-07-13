@@ -5,23 +5,19 @@ import React, {
   useState,
 } from 'react';
 import {
-  Pressable,
-  Text,
-  View,
-} from 'react-native';
-import {
   getCurrentPositionAsync,
   getLastKnownPositionAsync,
   LocationObject,
   requestForegroundPermissionsAsync,
 } from 'expo-location';
-import MapView, { Marker } from 'react-native-maps';
 import { useIsFocused } from '@react-navigation/native';
+import { View } from 'react-native';
 
 import { Coordinates, Marker as MarkerInterface } from './types';
-import { COORDINATES_DELTA } from '../../constants';
 import { getItem, setItem, storeKeys } from '../../utilities/store';
+import Maps from '../../components/Maps';
 import styles from './styles';
+import BigButton from '../../components/BigButton';
 
 const Map = (): React.ReactElement => {
   const [location, setLocation] = useState<LocationObject | null>(null);
@@ -90,32 +86,19 @@ const Map = (): React.ReactElement => {
 
   return (
     <View style={styles.container}>
-      <MapView
-        region={{
-          ...(location && location.coords ? location.coords : { longitude: 0, latitude: 0 }),
-          longitudeDelta: COORDINATES_DELTA,
-          latitudeDelta: COORDINATES_DELTA,
-        }}
-        showsUserLocation
-        style={styles.map}
-      >
-        { markers.map((marker) => (
-          <Marker
-            key={marker.key}
-            coordinate={marker.coordinate}
-            title={marker.title}
-            description={marker.description}
-          />
-        )) }
-      </MapView>
-      <Pressable
+      <Maps
+        mapStyle={styles.map}
+        markers={markers}
+        region={location && location.coords ? location.coords : { latitude: 0, longitude: 0 }}
+        showDescription
+        showTitle
+        showUserPosition
+      />
+      <BigButton
+        buttonStyle={styles.button}
         onPress={handlePress}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>
-          Save current location
-        </Text>
-      </Pressable>
+        text="Save current location"
+      />
     </View>
   );
 };
