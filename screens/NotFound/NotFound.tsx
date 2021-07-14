@@ -13,7 +13,7 @@ const NotFound = (
       Page not found!
     </Text>
     <Pressable
-      onPress={() => navigation.replace('Root')}
+      onPress={(): void => navigation.replace('Root')}
       style={styles.link}
     >
       <Text style={styles.linkText}>
