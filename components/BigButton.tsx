@@ -6,7 +6,7 @@ import styles from './styles';
 interface BigButtonProps {
   buttonStyle?: object;
   disabled?: boolean;
-  onPress: (event: GestureResponderEvent) => void;
+  onPress: (event: GestureResponderEvent) => any;
   text: string;
   textStyle?: object;
 }
