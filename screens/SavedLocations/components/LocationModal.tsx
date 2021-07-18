@@ -1,11 +1,7 @@
 import React, { memo } from 'react';
-import { Text } from 'react-native';
 
-import BigButton from '../../../components/BigButton';
-import LinkButton from '../../../components/LinkButton';
-import Maps from '../../../components/Maps';
+import LocationData from './components/LocationData';
 import { Marker } from '../../Map/types';
-import styles from '../styles';
 
 interface LocationModalProps {
   handleCloseModal: () => void;
@@ -24,40 +20,10 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
 
   return (
     <>
-      <Text style={styles.locationModalTitle}>
-        { marker.title }
-      </Text>
-      { marker.description && (
-        <Text
-          style={{
-            ...styles.locationModalTitle,
-            ...styles.locationModalText,
-          }}
-        >
-          { marker.description }
-        </Text>
-      ) }
-      <Maps
-        mapStyle={styles.locationModalMap}
-        markers={[marker]}
-        region={marker.coordinate}
-        showDescription={false}
-        showTitle={false}
-        showUserPosition={false}
-      />
-      <BigButton
-        buttonStyle={{
-          ...styles.clearLocationsButton,
-          ...styles.locationModalDeleteButton,
-        }}
-        onPress={handleDelete}
-        text="Remove location"
-      />
-      <LinkButton
-        buttonStyle={styles.closeModalButton}
-        onPress={handleCloseModal}
-        text="Close"
-        textStyle={styles.closeModalButtonText}
+      <LocationData
+        handleCloseModal={handleCloseModal}
+        handleDeleteMarker={handleDelete}
+        marker={marker}
       />
     </>
   );
