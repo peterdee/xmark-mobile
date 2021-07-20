@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
-import { Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Pressable, Text, View } from 'react-native';
 
 import BigButton from '../../../../components/BigButton';
-import LinkButton from '../../../../components/LinkButton';
+import colors from '../../../../constants/styles';
 import Maps from '../../../../components/Maps';
 import { Marker } from '../../../Map/types';
 import styles from '../../styles';
@@ -10,6 +11,7 @@ import styles from '../../styles';
 interface LocationDataProps {
   handleCloseModal: () => void;
   handleDeleteMarker: (id: string) => Promise<void>;
+  handleEditLocation: () => void;
   marker: Marker;
 }
 
@@ -17,6 +19,7 @@ const LocationData = (props: LocationDataProps): React.ReactElement => {
   const {
     handleCloseModal,
     handleDeleteMarker,
+    handleEditLocation,
     marker,
   } = props;
 
@@ -24,6 +27,22 @@ const LocationData = (props: LocationDataProps): React.ReactElement => {
 
   return (
     <>
+      <View style={styles.locationDataNavigation}>
+        <Pressable onPress={handleCloseModal}>
+          <Ionicons
+            color={colors.appBackground}
+            name="arrow-back"
+            size={32}
+          />
+        </Pressable>
+        <Pressable onPress={handleEditLocation}>
+          <Ionicons
+            color={colors.appBackground}
+            name="md-create-outline"
+            size={32}
+          />
+        </Pressable>
+      </View>
       <Text style={styles.locationModalTitle}>
         { marker.title }
       </Text>
@@ -52,12 +71,6 @@ const LocationData = (props: LocationDataProps): React.ReactElement => {
         }}
         onPress={handleDelete}
         text="Remove location"
-      />
-      <LinkButton
-        buttonStyle={styles.closeModalButton}
-        onPress={handleCloseModal}
-        text="Close"
-        textStyle={styles.closeModalButtonText}
       />
     </>
   );

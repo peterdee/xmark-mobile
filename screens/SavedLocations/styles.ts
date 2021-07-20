@@ -33,6 +33,12 @@ export default StyleSheet.create({
     marginTop: styles.spacerHalf,
     width: '100%',
   },
+  locationDataNavigation: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '80%',
+  },
   locationModalDeleteButton: {
     marginTop: styles.spacer,
     width: '80%',

@@ -29,6 +29,7 @@ import styles from './styles';
 const SavedLocations = (
   { navigation }: StackScreenProps<RootStackParamList, 'Root'>,
 ): React.ReactElement => {
+  const [editLocation, setEditLocation] = useState<boolean>(false);
   const [markers, setMarkers] = useState<Marker[]>([]);
   const [showLocation, setShowLocation] = useState<Marker | null>(null);
   const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -87,6 +88,8 @@ const SavedLocations = (
     return handleCloseLocationModal();
   };
 
+  const handleEditLocation = () => setEditLocation((state) => !state);
+
   const handleMarkerClick = (id: string): void => {
     const [marker] = markers.filter((item: Marker): boolean => String(item.key) === id);
     return setShowLocation(marker);
@@ -105,8 +108,10 @@ const SavedLocations = (
       { showLocation && (
         <ModalWrap visible={!!showLocation}>
           <LocationModal
+            editLocation={editLocation}
             handleCloseModal={handleCloseLocationModal}
             handleDeleteMarker={handleDeleteMarker}
+            handleEditLocation={handleEditLocation}
             marker={showLocation}
           />
         </ModalWrap>

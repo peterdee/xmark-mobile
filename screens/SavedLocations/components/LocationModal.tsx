@@ -2,17 +2,22 @@ import React, { memo } from 'react';
 
 import LocationData from './components/LocationData';
 import { Marker } from '../../Map/types';
+import EditLocationData from './components/EditLocationData';
 
 interface LocationModalProps {
+  editLocation: boolean;
   handleCloseModal: () => void;
   handleDeleteMarker: (id: string) => Promise<void>;
+  handleEditLocation: () => void;
   marker: Marker;
 }
 
 const LocationModal = (props: LocationModalProps): React.ReactElement => {
   const {
+    editLocation,
     handleCloseModal,
     handleDeleteMarker,
+    handleEditLocation,
     marker,
   } = props;
 
@@ -20,11 +25,17 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
 
   return (
     <>
-      <LocationData
-        handleCloseModal={handleCloseModal}
-        handleDeleteMarker={handleDelete}
-        marker={marker}
-      />
+      { editLocation && (
+        <EditLocationData />
+      ) }
+      { !editLocation && (
+        <LocationData
+          handleCloseModal={handleCloseModal}
+          handleDeleteMarker={handleDelete}
+          handleEditLocation={handleEditLocation}
+          marker={marker}
+        />
+      ) }
     </>
   );
 };
