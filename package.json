@@ -1,6 +1,6 @@
 {
   "name": "xmark-mobile",
-  "description": "XMark is a mobile application that stores geolocation",
+  "description": "XMark is a mobile application that allow users to store geolocations and view them on the map",
   "version": "1.0.0",
   "private": true,
   "author": {
