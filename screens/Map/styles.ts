@@ -30,6 +30,37 @@ const styles = StyleSheet.create({
   buttonText: {
     color: colors.appText,
   },
+  modalContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '80%',
+  },
+  modalControls: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: colors.spacer,
+    width: '100%',
+  },
+  modalDataInput: {
+    backgroundColor: colors.appBackground,
+    borderRadius: colors.spacerQuarter,
+    color: colors.appText,
+    fontSize: colors.spacer,
+    justifyContent: 'flex-start',
+    marginTop: colors.spacer,
+    padding: colors.spacerHalf,
+    textAlign: 'left',
+    width: '100%',
+  },
+  modalDataInputArea: {
+    textAlignVertical: 'top',
+  },
+  modalCoordinates: {
+    color: colors.appBackground,
+    fontSize: 14,
+  },
 });
 
 export default styles;

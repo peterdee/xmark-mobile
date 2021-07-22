@@ -14,7 +14,7 @@ import { useIsFocused } from '@react-navigation/native';
 import { View } from 'react-native';
 
 import BigButton from '../../components/BigButton';
-import { Coordinates, Marker as MarkerInterface } from './types';
+import { Coordinates, LocationTextData, Marker as MarkerInterface } from './types';
 import { getItem, setItem, storeKeys } from '../../utilities/store';
 import Maps from '../../components/Maps';
 import ModalWrap from '../../components/ModalWrap';
@@ -53,7 +53,7 @@ const Map = (): React.ReactElement => {
   );
 
   const saveLocation = useCallback(
-    async () => {
+    async (data: LocationTextData) => {
       if (location) {
         const { coords } = location;
         const existing: MarkerInterface[] = markers.filter(
