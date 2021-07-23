@@ -95,6 +95,22 @@ const SavedLocations = (
     return setShowLocation(marker);
   };
 
+  const handleSaveData = (marker: Marker): Promise<void> => {
+    const updatedMarkers: Marker[] = markers.reduce(
+      (array: Marker[], item: Marker) => {
+        if (item.key === marker.key) {
+          array.push(marker);
+          return array;
+        }
+        array.push(item);
+        return array;
+      },
+      [],
+    );
+
+    return setItem<Marker[]>(storeKeys.markers, updatedMarkers);
+  };
+
   return (
     <View style={styles.container}>
       { showMenu && (
@@ -112,6 +128,7 @@ const SavedLocations = (
             handleCloseModal={handleCloseLocationModal}
             handleDeleteMarker={handleDeleteMarker}
             handleEditLocation={handleEditLocation}
+            handleSaveData={handleSaveData}
             marker={showLocation}
           />
         </ModalWrap>

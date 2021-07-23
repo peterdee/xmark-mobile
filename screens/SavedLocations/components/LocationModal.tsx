@@ -9,6 +9,7 @@ interface LocationModalProps {
   handleCloseModal: () => void;
   handleDeleteMarker: (id: string) => Promise<void>;
   handleEditLocation: () => void;
+  handleSaveData: (marker: Marker) => Promise<void>;
   marker: Marker;
 }
 
@@ -18,6 +19,7 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
     handleCloseModal,
     handleDeleteMarker,
     handleEditLocation,
+    handleSaveData,
     marker,
   } = props;
 
@@ -26,7 +28,11 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
   return (
     <>
       { editLocation && (
-        <EditLocationData />
+        <EditLocationData
+          handleCloseModal={handleCloseModal}
+          handleSaveData={handleSaveData}
+          marker={marker}
+        />
       ) }
       { !editLocation && (
         <LocationData
