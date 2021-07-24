@@ -13,15 +13,18 @@ import {
 import { useIsFocused } from '@react-navigation/native';
 import { View } from 'react-native';
 
+import BigButton from '../../components/BigButton';
 import { Coordinates, Marker as MarkerInterface } from './types';
 import { getItem, setItem, storeKeys } from '../../utilities/store';
 import Maps from '../../components/Maps';
+import ModalWrap from '../../components/ModalWrap';
+import SaveLocationModal from './components/SaveLocationModal';
 import styles from './styles';
-import BigButton from '../../components/BigButton';
 
 const Map = (): React.ReactElement => {
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [markers, setMarkers] = useState<MarkerInterface[]>([]);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const isFocused = useIsFocused();
 
@@ -49,7 +52,7 @@ const Map = (): React.ReactElement => {
     [isFocused],
   );
 
-  const handlePress = useCallback(
+  const saveLocation = useCallback(
     async () => {
       if (location) {
         const { coords } = location;
@@ -84,8 +87,20 @@ const Map = (): React.ReactElement => {
     [location],
   );
 
+  const handleShowModal = (): void => setShowModal((state) => !state);
+
   return (
     <View style={styles.container}>
+      <ModalWrap visible={showModal}>
+        <SaveLocationModal
+          coordinates={{
+            latitude: location?.coords?.latitude || 0,
+            longitude: location?.coords?.longitude || 0,
+          }}
+          handleCloseModal={handleShowModal}
+          handleSaveLocation={saveLocation}
+        />
+      </ModalWrap>
       <Maps
         mapStyle={styles.map}
         markers={markers}
@@ -96,7 +111,7 @@ const Map = (): React.ReactElement => {
       />
       <BigButton
         buttonStyle={styles.button}
-        onPress={handlePress}
+        onPress={handleShowModal}
         text="Save current location"
       />
     </View>

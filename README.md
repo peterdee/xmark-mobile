@@ -2,7 +2,9 @@
 
 XMark is a mobile application that allow users to store geolocations and view them on the map
 
-Stack: [React Native](https://reactnative.dev), [Expo](https://expo.dev), [Typescript](https://www.typescriptlang.org)
+All of the data is stored directly on the device using [SecureStore](https://docs.expo.io/versions/latest/sdk/securestore)
+
+Stack: [React Native](https://reactnative.dev), [Expo](https://expo.dev), [MapView](https://docs.expo.io/versions/latest/sdk/map-view), [Typescript](https://www.typescriptlang.org)
 
 ### Deploy
 
@@ -20,7 +22,7 @@ yarn
 yarn start
 ```
 
-Alternatively, run on the simulators:
+Alternatively, use one of the simulators:
 
 ```shell script
 yarn android
