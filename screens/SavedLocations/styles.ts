@@ -53,10 +53,11 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: styles.spacer,
     width: '80%',
   },
   locationModalDeleteButton: {
-    marginTop: styles.spacer,
+    marginTop: (styles.spacer * 2),
     width: '80%',
   },
   locationModalMap: {

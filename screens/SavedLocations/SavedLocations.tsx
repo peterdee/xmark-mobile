@@ -79,6 +79,8 @@ const SavedLocations = (
     [markers],
   );
 
+  const handleCloseEdit = (): void => setEditLocation(false);
+
   const handleCloseLocationModal = (): void => setShowLocation(null);
 
   const handleDeleteMarker = async (id: string): Promise<void> => {
@@ -127,6 +129,7 @@ const SavedLocations = (
         <ModalWrap visible={!!showLocation}>
           <LocationModal
             editLocation={editLocation}
+            handleCloseEdit={handleCloseEdit}
             handleCloseModal={handleCloseLocationModal}
             handleDeleteMarker={handleDeleteMarker}
             handleEditLocation={handleEditLocation}

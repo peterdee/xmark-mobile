@@ -6,6 +6,7 @@ import EditLocationData from './components/EditLocationData';
 
 interface LocationModalProps {
   editLocation: boolean;
+  handleCloseEdit: () => void;
   handleCloseModal: () => void;
   handleDeleteMarker: (id: string) => Promise<void>;
   handleEditLocation: () => void;
@@ -16,6 +17,7 @@ interface LocationModalProps {
 const LocationModal = (props: LocationModalProps): React.ReactElement => {
   const {
     editLocation,
+    handleCloseEdit,
     handleCloseModal,
     handleDeleteMarker,
     handleEditLocation,
@@ -36,7 +38,7 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
     <>
       { editLocation && (
         <EditLocationData
-          handleCloseModal={handleCloseModal}
+          handleCloseModal={handleCloseEdit}
           handleSaveData={handleSave}
           marker={updatedMarker}
         />
