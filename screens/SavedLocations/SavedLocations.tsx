@@ -95,7 +95,7 @@ const SavedLocations = (
     return setShowLocation(marker);
   };
 
-  const handleSaveData = (marker: Marker): Promise<void> => {
+  const handleSaveData = async (marker: Marker): Promise<void> => {
     const updatedMarkers: Marker[] = markers.reduce(
       (array: Marker[], item: Marker) => {
         if (item.key === marker.key) {
@@ -108,7 +108,9 @@ const SavedLocations = (
       [],
     );
 
-    return setItem<Marker[]>(storeKeys.markers, updatedMarkers);
+    setMarkers(updatedMarkers);
+    await setItem<Marker[]>(storeKeys.markers, updatedMarkers);
+    return setEditLocation(false);
   };
 
   return (

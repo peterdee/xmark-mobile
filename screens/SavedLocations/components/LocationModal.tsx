@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 
 import LocationData from './components/LocationData';
 import { Marker } from '../../Map/types';
@@ -23,15 +23,22 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
     marker,
   } = props;
 
+  const [updatedMarker, setUpdatedMarker] = useState<Marker>(marker);
+
   const handleDelete = (): Promise<void> => handleDeleteMarker(String(marker.key));
+
+  const handleSave = (item: Marker): Promise<void> => {
+    setUpdatedMarker(item);
+    return handleSaveData(item);
+  };
 
   return (
     <>
       { editLocation && (
         <EditLocationData
           handleCloseModal={handleCloseModal}
-          handleSaveData={handleSaveData}
-          marker={marker}
+          handleSaveData={handleSave}
+          marker={updatedMarker}
         />
       ) }
       { !editLocation && (
@@ -39,7 +46,7 @@ const LocationModal = (props: LocationModalProps): React.ReactElement => {
           handleCloseModal={handleCloseModal}
           handleDeleteMarker={handleDelete}
           handleEditLocation={handleEditLocation}
-          marker={marker}
+          marker={updatedMarker}
         />
       ) }
     </>
