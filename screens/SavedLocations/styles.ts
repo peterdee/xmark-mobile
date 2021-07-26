@@ -39,6 +39,9 @@ export default StyleSheet.create({
     textAlign: 'left',
     width: '80%',
   },
+  editLocationDataInputArea: {
+    textAlignVertical: 'top',
+  },
   list: {
     display: 'flex',
     flexDirection: 'column',

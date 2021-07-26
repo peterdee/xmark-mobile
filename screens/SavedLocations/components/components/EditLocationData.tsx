@@ -57,7 +57,10 @@ const EditLocationData = (props: EditLocationDataProps): React.ReactElement => {
         numberOfLines={10}
         onChangeText={setDescription}
         placeholder="Location description"
-        style={styles.editLocationDataInput}
+        style={[
+          styles.editLocationDataInput,
+          styles.editLocationDataInputArea,
+        ]}
         value={description}
       />
     </>
