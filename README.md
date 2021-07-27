@@ -32,6 +32,18 @@ yarn android
 yarn ios
 ```
 
+### Build
+
+Build using Expo:
+
+```shell script
+yarn build:android
+```
+
+```shell script
+yarn build:ios
+```
+
 ### Linting
 
 ```shell script

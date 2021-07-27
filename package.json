@@ -1,7 +1,7 @@
 {
   "name": "xmark-mobile",
   "description": "XMark is a mobile application that allow users to store geolocations and view them on the map",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
   "author": {
     "name": "Peter Dyumin",
@@ -19,6 +19,8 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "android": "expo start --android",
+    "build:android": "expo build:android",
+    "build:ios": "expo build:ios",
     "eject": "expo eject",
     "ios": "expo start --ios",
     "lint": "eslint",
