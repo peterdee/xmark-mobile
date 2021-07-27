@@ -7,6 +7,7 @@ import { COORDINATES_DELTA } from '../constants';
 interface MapsProps {
   mapStyle?: object,
   markers?: Marker[];
+  onLocationChange?: () => any;
   region: Coordinates;
   showDescription?: boolean;
   showTitle?: boolean;
@@ -17,11 +18,18 @@ const Maps = (props: MapsProps): React.ReactElement => {
   const {
     mapStyle,
     markers,
+    onLocationChange,
     region,
     showDescription,
     showTitle,
     showUserPosition,
   } = props;
+
+  const handleLocationChange = (): void => {
+    if (onLocationChange) {
+      onLocationChange();
+    }
+  };
 
   return (
     <MapView
@@ -30,6 +38,10 @@ const Maps = (props: MapsProps): React.ReactElement => {
         longitudeDelta: COORDINATES_DELTA,
         latitudeDelta: COORDINATES_DELTA,
       }}
+      onUserLocationChange={handleLocationChange}
+      showsCompass={false}
+      showsMyLocationButton={false}
+      showsPointsOfInterest={false}
       showsUserLocation={showUserPosition}
       style={mapStyle}
     >
@@ -46,6 +58,7 @@ const Maps = (props: MapsProps): React.ReactElement => {
 };
 
 Maps.defaultProps = {
+  onLocationChange: null,
   mapStyle: {},
   markers: [],
   showDescription: true,

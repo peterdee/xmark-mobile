@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   modalCoordinates: {
     color: colors.appBackground,
-    fontSize: 14,
+    fontSize: (colors.spacer - 2),
   },
 });
 

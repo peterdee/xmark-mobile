@@ -8,6 +8,7 @@ export default {
   error: '#c11818',
   inactiveError: '#daa5a5',
   inactiveText: '#bbbbbb',
+  inactiveTextDarker: '#444444',
   spacer: SPACER,
   spacerHalf: (SPACER / 2),
   spacerQuarter: (SPACER / 4),

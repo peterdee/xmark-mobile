@@ -1,6 +1,5 @@
 import React, {
   memo,
-  useCallback,
   useEffect,
   useState,
 } from 'react';
@@ -14,7 +13,11 @@ import { useIsFocused } from '@react-navigation/native';
 import { View } from 'react-native';
 
 import BigButton from '../../components/BigButton';
-import { Coordinates, LocationTextData, Marker as MarkerInterface } from './types';
+import {
+  Coordinates,
+  LocationData,
+  Marker as MarkerInterface,
+} from './types';
 import { getItem, setItem, storeKeys } from '../../utilities/store';
 import Maps from '../../components/Maps';
 import ModalWrap from '../../components/ModalWrap';
@@ -22,6 +25,7 @@ import SaveLocationModal from './components/SaveLocationModal';
 import styles from './styles';
 
 const Map = (): React.ReactElement => {
+  const [disableSave, setDisableSave] = useState<boolean>(false);
   const [location, setLocation] = useState<LocationObject | null>(null);
   const [markers, setMarkers] = useState<MarkerInterface[]>([]);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -52,42 +56,33 @@ const Map = (): React.ReactElement => {
     [isFocused],
   );
 
-  const saveLocation = useCallback(
-    async (data: LocationTextData) => {
-      if (location) {
-        const { coords } = location;
-        const existing: MarkerInterface[] = markers.filter(
-          (
-            { coordinate }: { coordinate: Coordinates },
-          ): boolean => coordinate.latitude === coords.latitude
-            && coordinate.longitude === coords.longitude,
-        );
-        if (existing.length === 0) {
-          await setItem(
-            storeKeys.markers,
-            [
-              ...markers,
-              {
-                key: Date.now(),
-                coordinate: location.coords,
-                title: 'My custom location',
-                description: 'CUSTOM',
-              },
-            ],
-          );
-          setMarkers((state) => [...state, {
-            key: Date.now(),
-            coordinate: location.coords,
-            title: 'My custom location',
-            description: 'CUSTOMS',
-          }]);
-        }
-      }
-    },
-    [location],
-  );
+  const handleLocationChange = (): void => setDisableSave(false);
 
   const handleShowModal = (): void => setShowModal((state) => !state);
+
+  const saveLocation = async (coordinates: Coordinates, data: LocationData) => {
+    await setItem(
+      storeKeys.markers,
+      [
+        ...markers,
+        {
+          coordinate: coordinates,
+          description: data.description,
+          key: Date.now(),
+          title: data.title,
+        },
+      ],
+    );
+    setMarkers((state) => [...state, {
+      coordinate: coordinates,
+      description: data.description,
+      key: Date.now(),
+      title: data.title,
+    }]);
+
+    setDisableSave(true);
+    return setShowModal(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -104,6 +99,7 @@ const Map = (): React.ReactElement => {
       <Maps
         mapStyle={styles.map}
         markers={markers}
+        onLocationChange={handleLocationChange}
         region={location && location.coords ? location.coords : { latitude: 0, longitude: 0 }}
         showDescription
         showTitle
@@ -111,6 +107,7 @@ const Map = (): React.ReactElement => {
       />
       <BigButton
         buttonStyle={styles.button}
+        disabled={disableSave}
         onPress={handleShowModal}
         text="Save current location"
       />

@@ -3,12 +3,12 @@ export interface Coordinates {
   longitude: number;
 }
 
-export interface LocationTextData {
+export interface LocationData {
   description: string;
   title: string;
 }
 
-export interface Marker extends LocationTextData {
+export interface Marker extends LocationData {
   coordinate: Coordinates;
   key: number | string;
 }

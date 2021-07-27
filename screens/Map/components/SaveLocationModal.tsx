@@ -8,13 +8,13 @@ import {
 } from 'react-native';
 
 import colors from '../../../constants/styles';
-import { Coordinates, LocationTextData } from '../types';
+import { Coordinates, LocationData as TextData } from '../types';
 import styles from '../styles';
 
 interface LocationDataProps {
-  coordinates: Coordinates | null;
+  coordinates: Coordinates;
   handleCloseModal: () => void;
-  handleSaveLocation: (data: LocationTextData) => Promise<void>;
+  handleSaveLocation: (coordinates: Coordinates, data: TextData) => Promise<void>;
 }
 
 const LocationData = (props: LocationDataProps): React.ReactElement => {
@@ -25,23 +25,17 @@ const LocationData = (props: LocationDataProps): React.ReactElement => {
   } = props;
 
   const [description, setDescription] = useState<string>('');
-  const [error, setError] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-
-  const handleSave = (): void | Promise<void> => {
-    if (!title) {
-      return setError('Please provide the title!');
-    }
-
-    return handleSaveLocation({ description, title });
-  };
 
   return (
     <View style={styles.modalContainer}>
       <View style={styles.modalControls}>
-        <Pressable onPress={handleSave}>
+        <Pressable
+          disabled={title.length === 0}
+          onPress={() => handleSaveLocation(coordinates, { description, title })}
+        >
           <Ionicons
-            color={colors.appBackground}
+            color={title.length > 0 ? colors.appBackground : colors.inactiveTextDarker}
             name="checkmark-sharp"
             size={32}
           />
