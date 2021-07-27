@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   modalDataInputArea: {
+    minHeight: (colors.spacer * 10),
     textAlignVertical: 'top',
   },
   modalCoordinates: {

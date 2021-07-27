@@ -40,6 +40,7 @@ export default StyleSheet.create({
     width: '80%',
   },
   editLocationDataInputArea: {
+    minHeight: (styles.spacer * 10),
     textAlignVertical: 'top',
   },
   list: {
